@@ -1,6 +1,8 @@
 def calculate_square(n):
     return n**2
 
-user_input = int(input("Input: "))
-print("Output: ", end="")
-print(calculate_square(user_input))
+try:
+    user_input = int(input("Input: "))
+    print("Output:", calculate_square(user_input))
+except ValueError as e:
+    print(f"Error: {e} | Please enter a valid Integer.")
