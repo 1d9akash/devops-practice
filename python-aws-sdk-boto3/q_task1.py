@@ -44,18 +44,21 @@ def enable_versioning(s3, bucket_name):
             print(f"Error: {e}")
     else:
         print(f"Versioning was already enabled for the bucket '{bucket_name}'.")
-try:
-    bucket_name = input("Enter the Bucket Name to Create: ").strip()
-    region = input("Enter the region in which you want to create the bucket: ").strip()
-    s3 = s3_client(region)
-    create_bucket(s3, bucket_name, region)
-    enable_versioning(s3, bucket_name)
 
-except NoCredentialsError as e:
-    print(f"No AWS Credentials found | {e}")
-except PartialCredentialsError as e:
-    print(f"Incomplete AWS Credentials | {e}")
-except ClientError as e:
-    print(f"AWS Client Error occured | {e}")
-except Exception as e:
-    print(f"Error: {e}")
+if __name__ == "__main__":
+    
+    try:
+        bucket_name = input("Enter the Bucket Name to Create: ").strip()
+        region = input("Enter the region in which you want to create the bucket: ").strip()
+        s3 = s3_client(region)
+        create_bucket(s3, bucket_name, region)
+        enable_versioning(s3, bucket_name)
+
+    except NoCredentialsError as e:
+        print(f"No AWS Credentials found | {e}")
+    except PartialCredentialsError as e:
+        print(f"Incomplete AWS Credentials | {e}")
+    except ClientError as e:
+        print(f"AWS Client Error occured | {e}")
+    except Exception as e:
+        print(f"Error: {e}")
