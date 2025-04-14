@@ -2,7 +2,7 @@ from botocore.exceptions import NoCredentialsError, PartialCredentialsError, Cli
 from q_task1 import s3_client, bucket_exists
 import requests
 import json
-def generate_presigned_url(s3, bucket_name, object_name):
+def generate_presigned_url(s3, bucket_name, object_name, ip_range):
     if bucket_exists(s3, bucket_name):
         policy = {
            "Id": "Policy1744391477426",
@@ -28,7 +28,7 @@ def generate_presigned_url(s3, bucket_name, object_name):
          }
         try:
             s3.put_bucket_policy(Bucket=bucket_name,Policy=json.dumps(policy))
-            result = s3.generate_presigned_url('get_object', Params={'Bucket': bucket_name,'Key': object_name}, ExpiresIn=360)
+            result = s3.generate_presigned_url('get_object', Params={'Bucket': bucket_name,'Key': object_name}, ExpiresIn=300)
             print(f"Pre-Signed URL generated (Valid for 5 mins): {result}")
         except ClientError as e:
             print(f"AWS Client Error occured | {e}")
@@ -42,7 +42,7 @@ if __name__ == "__main__":
         bucket_name = input("Enter the Bucket Name: ").strip()
         object_name = input("Enter the Key (Ex: uploads/test.txt ): ").strip()
         s3 = s3_client(region)
-        generate_presigned_url(s3, bucket_name, object_name)
+        generate_presigned_url(s3, bucket_name, object_name, ip_range)
     except NoCredentialsError as e:
         print(f"No AWS Credentials found | {e}")
     except PartialCredentialsError as e:
