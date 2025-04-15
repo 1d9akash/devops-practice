@@ -28,8 +28,8 @@ def s3_lifecycle_mgmt(s3, bucket_name):
 #                },
 
 #                {
-#                    'ID': 'Enable Intelligent-Tiering For files > 100MB',
-#                    'Filter':{'Prefix': '', 'ObjectSizeGreaterThan': 100000000},
+#                    'ID': 'Enable Intelligent-Tiering For files with tag type=config',
+#                    'Filter': {'And':{'Prefix': '', 'Tags': [{'Key': 'type', 'Value': 'config'}]}},
 #                    'Status': 'Enabled',
 #                    'Transitions': [{'Days':0, 'StorageClass': 'INTELLIGENT_TIERING'}]
 #                }
