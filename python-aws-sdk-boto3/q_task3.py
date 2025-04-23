@@ -13,31 +13,24 @@ def s3_lifecycle_mgmt(s3, bucket_name):
                     'Transitions': [{'Days': 7, 'StorageClass': 'GLACIER'}]
                 },
                 
-#                {
-#                    'ID': 'Protect Objects older than 90 Days with Tag type=config',
-#                    'Filter': {'And':{'Prefix': '', 'Tags': [{'Key': 'type', 'Value': 'config'}]}},
-#                    'Status': 'Enabled'
-#                    'Expiration': {'Days': 90}
-#                },
-                
-#                {
-#                    'ID': 'Delete Objects older than 90 Days',
-#                    'Filter': {'Prefix': ''},
-#                    'Status': 'Enabled',
-#                    'Expiration': {'Days': 90}
-#                },
+                {
+                    'ID': 'Delete Objects older than 90 Days',
+                    'Filter': {'And':{'Prefix': '', 'Tags': [{'Key': 'type', 'Value': 'deletable'}]}},
+                    'Status': 'Enabled',
+                    'Expiration': {'Days': 90}
+                },
 
-#                {
-#                    'ID': 'Enable Intelligent-Tiering For files > 100MB',
-#                    'Filter':{'Prefix': '', 'ObjectSizeGreaterThan': 100000000},
-#                    'Status': 'Enabled',
-#                    'Transitions': [{'Days':0, 'StorageClass': 'INTELLIGENT_TIERING'}]
-#                }
+                {
+                    'ID': 'Enable Intelligent-Tiering For files with tag type=dataset',
+                    'Filter': {'And':{'Prefix': '', 'Tags': [{'Key': 'type', 'Value': 'dataset'}]}},
+                    'Status': 'Enabled',
+                    'Transitions': [{'Days':0, 'StorageClass': 'INTELLIGENT_TIERING'}]
+                }
             ]
         }
         try:
             s3.put_bucket_lifecycle_configuration(Bucket=bucket_name,LifecycleConfiguration=lifecycle_config)
-            print("Lifecycle rule applied: Move to Glacier after 7 days, delete objects after 90 days except objects tagged with type=config and Enabled Intelligent-Tiering For files size greater than 100MB")
+            print("Lifecycle rule applied: Move to Glacier after 7 days, delete objects after 90 days tagged with type=deletable and Enabled Intelligent-Tiering For files tagged with type=dataset")
         except Exception as e:
             print(f"Error: {e}")
     else:
