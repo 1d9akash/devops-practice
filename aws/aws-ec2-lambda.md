@@ -79,3 +79,30 @@
 - EBS: Block storage, can be attachable to one EC2 at a time, can be used for Databases/OS disks.
 - EFS: File storage, Can be attachable to multiple instances at a time, shared filesystem.
 ---
+### What is AWS Lambda, and how does it enable serverless computing?
+- Lambda lets ous run code without provisioning or managing the servers.
+- We upload the code, define a trigger ( ex: cron from eventbridge, s3 upload, api call etc.. ) and lambda runs it.
+---
+### What are the key factors that impact AWS lambda cold start times, and how can they be minimized?
+- Impactful factors are:
+    - Language runtime ( ex: java and .NET are heavier )
+    - Size of the deployment package
+- To minimize the cold start times:
+    - Use ligher runtimes ( ex: python, Node.js )
+    - Keeping the functions small
+---
+### What is an EC2 savings plan, and how does it help reduce costs?
+- We have to give the commitment to a consistent amount of usage measured in $/hr for 1 or 3 years.
+- We can get upto 66% savings compared to On-demand pricing.
+---
+### What is the difference between compute savings plan and EC2 instance savings plans?
+- Compute Savings Plan:
+    - Flexible across EC2, Fargate, Lambda
+    - Any instance type, family, region
+- EC2 Instance Savings Plan:
+    - Commited to a specific instance family ( eg: m5 ) in a region.
+---
+### How do Savings Plan compare to Reserved instances in terms of flexibility?
+- Savings Plan - High Flexibility, Services beyond EC2 instances possible.
+- Reserved Instances - Limited, Only EC2.
+---
