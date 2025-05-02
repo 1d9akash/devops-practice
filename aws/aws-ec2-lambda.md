@@ -50,3 +50,32 @@
 ### How do Security Groups differ from Network ACLs?
 - Security Groups: applies to Instances, stateful, contains only allow rules, All rules are evaluated.
 - Network ACLs: applies to subnets, stateless, contains both the allow and deny rules, Rules are evaluated from top-down.
+---
+### How do you allow only SSH traffic from a specific IP range?
+- By addding an inbound rule in the security group with port: 22, protocol: TCP, source: < specific-ip-range >
+---
+### What is the impact of deleting a security group associated with an active EC2 instance?
+- We cannot delete a security group attacehd to an active instance, We must first detach it or replace it.
+---
+### What are the different types of EBS volumes, and when should you use each?
+- General Purpose SSD - gp2/gp3 - Balanced performance, default choice.
+- Provisioned IOPS SSD - io2/io1 - High Performance Databases, etc.
+- Throughput Optimized HDD - st1 - Big data, logs, etc.
+- Cold HDD - sc1 - Archival, less frequently accessed data.
+---
+### How do you resize an EBS volume without downtime?
+- Modify volume size via AWS console or CLI.
+- Then extend the filesystem inside the EC2 Instance.
+---
+### What is an EBS snapshot and how can it be used for backup and recovery?
+- EBS snapshot = Backup of an EBS volume.
+- We can restore a new EBS volume from a snapshot in any region.
+---
+### How do you encrypt an EBS volume, and what are the benefits?
+- We have to enable encryption when creating a volume.
+- Uses AWS KMS keys: data at rest, in-transit encryption, easier compliance.
+---
+### What is the difference between EBS & EFS?
+- EBS: Block storage, can be attachable to one EC2 at a time, can be used for Databases/OS disks.
+- EFS: File storage, Can be attachable to multiple instances at a time, shared filesystem.
+---
