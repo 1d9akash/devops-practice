@@ -1,6 +1,6 @@
 
 ---
-### 8. `Cloudwatch ( Metrics & Logs )`
+### 7. `Cloudwatch ( Metrics & Logs )`
 ---
 ### What are cloudwatch metrics, logs and alarms, and how do they help in monitoring AWS resources?
 - Metrics: Key Performance Indicators / Numerical values over time ( CPU, Memory etc. )
